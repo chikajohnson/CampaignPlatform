@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="08306e767a674ce29e02e8b47c88c307" Name="Diagram1" ZoomLevel="60">
+        <EntityTypeShape EntityType="CampaignModel.C__MigrationHistory" Width="1.5" PointX="7.625" PointY="1.75" />
+        <EntityTypeShape EntityType="CampaignModel.AspNetRole" Width="1.5" PointX="9.75" PointY="4.375" />
+        <EntityTypeShape EntityType="CampaignModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="2.875" />
+        <EntityTypeShape EntityType="CampaignModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="8.875" />
+        <EntityTypeShape EntityType="CampaignModel.AspNetUser" Width="1.5" PointX="12" PointY="3.125" />
+        <EntityTypeShape EntityType="CampaignModel.Country" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="CampaignModel.Lga" Width="1.5" PointX="3" PointY="20.75" />
+        <EntityTypeShape EntityType="CampaignModel.NewsCategory" Width="1.5" PointX="6" PointY="22.75" />
+        <EntityTypeShape EntityType="CampaignModel.NewsComment" Width="1.5" PointX="10.5" PointY="24" />
+        <EntityTypeShape EntityType="CampaignModel.Poll" Width="1.5" PointX="15" PointY="11.75" />
+        <EntityTypeShape EntityType="CampaignModel.State" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="CampaignModel.VideoCategory" Width="1.5" PointX="9" PointY="28.75" />
+        <EntityTypeShape EntityType="CampaignModel.VideoComment" Width="1.5" PointX="13.5" PointY="17.875" />
+        <EntityTypeShape EntityType="CampaignModel.Video" Width="1.5" PointX="11.25" PointY="16.5" />
+        <AssociationConnector Association="CampaignModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CampaignModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CampaignModel.FK_Videos_Countries" />
+        <AssociationConnector Association="CampaignModel.FK_Lga_States" />
+        <AssociationConnector Association="CampaignModel.FK_Videos_Lga" />
+        <AssociationConnector Association="CampaignModel.FK_NewsComments_NewscommentParent" />
+        <AssociationConnector Association="CampaignModel.FK_Videos_States" />
+        <AssociationConnector Association="CampaignModel.FK_Videos_NewsCategories" />
+        <AssociationConnector Association="CampaignModel.FK_VideoComments_VideoComments" />
+        <AssociationConnector Association="CampaignModel.FK_VideoComments_Videos" />
+        <AssociationConnector Association="CampaignModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="CampaignModel.Advert" Width="1.5" PointX="10.5" PointY="11" />
+        <AssociationConnector Association="CampaignModel.FK_Adverts_Countries" />
+        <AssociationConnector Association="CampaignModel.FK_Adverts_States" />
+        <AssociationConnector Association="CampaignModel.FK_States_Countries" />
+        <EntityTypeShape EntityType="CampaignModel.PollParticipation" Width="1.5" PointX="17.25" PointY="8.625" />
+        <AssociationConnector Association="CampaignModel.FK_PollParticipant_AspNetUsers" />
+        <AssociationConnector Association="CampaignModel.FK_PollParticipant_Polls" />
+        <EntityTypeShape EntityType="CampaignModel.News" Width="1.5" PointX="8.25" PointY="16.875" />
+        <AssociationConnector Association="CampaignModel.FK_News_Countries" />
+        <AssociationConnector Association="CampaignModel.FK_News_Lga" />
+        <AssociationConnector Association="CampaignModel.FK_News_NewsCategories" />
+        <AssociationConnector Association="CampaignModel.FK_News_States" />
+        <AssociationConnector Association="CampaignModel.FK_NewsComments_News" />
+        <EntityTypeShape EntityType="CampaignModel.Party" Width="1.5" PointX="7.5" PointY="5.25" />
+        <AssociationConnector Association="CampaignModel.FK_Parties_Countries" />
+        <EntityTypeShape EntityType="CampaignModel.CandidateView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CampaignModel.Candidate" Width="1.5" PointX="16.5" PointY="1.25" />
+        <AssociationConnector Association="CampaignModel.FK_Candidates_Countries" />
+        <AssociationConnector Association="CampaignModel.FK_Candidates_Parties" />
+        <AssociationConnector Association="CampaignModel.FK_Candidates_States" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
