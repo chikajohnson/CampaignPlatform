@@ -42,8 +42,11 @@ namespace Campaign.Business.EF
         public virtual DbSet<Advert> Adverts { get; set; }
         public virtual DbSet<PollParticipation> PollParticipations { get; set; }
         public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<Party> Parties { get; set; }
         public virtual DbSet<CandidateView> CandidateViews { get; set; }
+        public virtual DbSet<NewsView> NewsViews { get; set; }
+        public virtual DbSet<VideoView> VideoViews { get; set; }
+        public virtual DbSet<Party> Parties { get; set; }
+        public virtual DbSet<ElectoralOffice> ElectoralOffices { get; set; }
         public virtual DbSet<Candidate> Candidates { get; set; }
     }
 }

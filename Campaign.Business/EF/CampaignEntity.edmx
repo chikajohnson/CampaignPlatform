@@ -93,6 +93,7 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
           <Property Name="Gender" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="OtherNames" Type="nvarchar" MaxLength="128" />
           <Property Name="DateOfBirth" Type="datetime" />
@@ -102,8 +103,8 @@
           <Property Name="Email" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Qualifications" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PartyID" Type="nvarchar" MaxLength="128" />
-          <Property Name="Position" Type="nvarchar" MaxLength="250" />
-          <Property Name="PositionLocation" Type="nvarchar" MaxLength="250" />
+          <Property Name="ElectoralOffice" Type="nvarchar" MaxLength="128" />
+          <Property Name="Constituency" Type="nvarchar" MaxLength="228" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="128" />
           <Property Name="CountryID" Type="int" Nullable="false" />
           <Property Name="StateID" Type="int" Nullable="false" />
@@ -117,6 +118,14 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ElectoralOffices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Lga">
           <Key>
@@ -135,22 +144,19 @@
           <Property Name="Title" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CategoryID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IsPublished" Type="bit" Nullable="false" />
           <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
           <Property Name="Dislikes" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Shared" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="PublishedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PublishedAt" Type="datetime" Nullable="false" />
-          <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
           <Property Name="CountryID" Type="int" Nullable="false" />
-          <Property Name="CountryName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="StateID" Type="int" Nullable="false" />
-          <Property Name="StateName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LgaID" Type="int" />
-          <Property Name="LgaName" Type="nvarchar" MaxLength="128" />
           <Property Name="Town" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="NewsCategories">
@@ -179,6 +185,7 @@
           <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Acronym" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="128" />
           <Property Name="Address" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -195,8 +202,10 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PollId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="SelectedPollAnswerOption" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SelectedPollAnswerOptionText" Type="nvarchar" MaxLength="250" />
           <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ParticipationDate" Type="datetime" Nullable="false" />
+          <Property Name="HasParticipated" Type="bit" />
         </EntityType>
         <EntityType Name="Polls">
           <Key>
@@ -217,8 +226,8 @@
           <Property Name="OpinionAnswerOptionCCount" Type="int" Nullable="false" />
           <Property Name="OpinionAnswerOptionDCount" Type="int" Nullable="false" />
           <Property Name="OpinionAnswerOptionECount" Type="int" Nullable="false" />
-          <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="IsPublished" Type="bit" />
@@ -262,8 +271,9 @@
           <Property Name="Title" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CategoryID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Url" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
           <Property Name="Type" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IsPublished" Type="bit" Nullable="false" />
           <Property Name="Likes" Type="int" Nullable="false" />
@@ -272,11 +282,8 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="Shared" Type="int" />
           <Property Name="CountryID" Type="int" Nullable="false" />
-          <Property Name="CountryName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="StateID" Type="int" Nullable="false" />
-          <Property Name="StateName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LgaID" Type="int" />
-          <Property Name="LgaName" Type="nvarchar" MaxLength="128" />
           <Property Name="Town" Type="nvarchar" MaxLength="128" />
           <Property Name="PublishedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="PublishedAt" Type="datetime" />
@@ -307,6 +314,7 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="FirstName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
           <Property Name="Gender" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="OtherNames" Type="nvarchar" MaxLength="128" />
           <Property Name="DateOfBirth" Type="datetime" />
@@ -326,6 +334,98 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="LgaID" Type="int" Nullable="false" />
           <Property Name="CountryID" Type="int" Nullable="false" />
           <Property Name="StateID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Campaign.dbo.NewsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NewsView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Body" />
+            <PropertyRef Name="IsPublished" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="Dislikes" />
+            <PropertyRef Name="Shared" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedAt" />
+            <PropertyRef Name="PublishedBy" />
+            <PropertyRef Name="PublishedAt" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="CountryID" />
+            <PropertyRef Name="CountryName" />
+            <PropertyRef Name="StateID" />
+            <PropertyRef Name="StateName" />
+            <PropertyRef Name="LgaName" />
+            <PropertyRef Name="LgaID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="Dislikes" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Shared" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="PublishedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PublishedAt" Type="datetime" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
+          <Property Name="Town" Type="nvarchar" MaxLength="128" />
+          <Property Name="CategoryID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="128" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LgaName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LgaID" Type="int" Nullable="false" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Campaign.dbo.VideoView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VideoView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Url" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="IsPublished" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="Dislikes" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedAt" />
+            <PropertyRef Name="CountryID" />
+            <PropertyRef Name="StateID" />
+            <PropertyRef Name="LgaName" />
+            <PropertyRef Name="CountryName" />
+            <PropertyRef Name="StateName" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
+          <Property Name="Likes" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Dislikes" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="Shared" Type="int" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="LgaID" Type="int" />
+          <Property Name="Town" Type="nvarchar" MaxLength="128" />
+          <Property Name="PublishedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="PublishedAt" Type="datetime" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="128" />
+          <Property Name="LgaName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ImageSource" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <Association Name="FK_Adverts_Countries">
           <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
@@ -657,6 +757,7 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Candidates" EntityType="Self.Candidates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ElectoralOffices" EntityType="Self.ElectoralOffices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lga" EntityType="Self.Lga" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewsCategories" EntityType="Self.NewsCategories" Schema="dbo" store:Type="Tables" />
@@ -675,6 +776,7 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
     [CandidateView].[FirstName] AS [FirstName], 
     [CandidateView].[LastName] AS [LastName], 
     [CandidateView].[ImageUrl] AS [ImageUrl], 
+    [CandidateView].[ImageSource] AS [ImageSource], 
     [CandidateView].[Gender] AS [Gender], 
     [CandidateView].[OtherNames] AS [OtherNames], 
     [CandidateView].[DateOfBirth] AS [DateOfBirth], 
@@ -695,6 +797,60 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
     [CandidateView].[CountryID] AS [CountryID], 
     [CandidateView].[StateID] AS [StateID]
     FROM [dbo].[CandidateView] AS [CandidateView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NewsView" EntityType="Self.NewsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NewsView].[ID] AS [ID], 
+    [NewsView].[Title] AS [Title], 
+    [NewsView].[Body] AS [Body], 
+    [NewsView].[IsPublished] AS [IsPublished], 
+    [NewsView].[Likes] AS [Likes], 
+    [NewsView].[Dislikes] AS [Dislikes], 
+    [NewsView].[Shared] AS [Shared], 
+    [NewsView].[CreatedBy] AS [CreatedBy], 
+    [NewsView].[CreatedAt] AS [CreatedAt], 
+    [NewsView].[PublishedBy] AS [PublishedBy], 
+    [NewsView].[PublishedAt] AS [PublishedAt], 
+    [NewsView].[ImageUrl] AS [ImageUrl], 
+    [NewsView].[Town] AS [Town], 
+    [NewsView].[CategoryID] AS [CategoryID], 
+    [NewsView].[CategoryName] AS [CategoryName], 
+    [NewsView].[CountryID] AS [CountryID], 
+    [NewsView].[CountryName] AS [CountryName], 
+    [NewsView].[StateID] AS [StateID], 
+    [NewsView].[StateName] AS [StateName], 
+    [NewsView].[LgaName] AS [LgaName], 
+    [NewsView].[LgaID] AS [LgaID], 
+    [NewsView].[ImageSource] AS [ImageSource]
+    FROM [dbo].[NewsView] AS [NewsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VideoView" EntityType="Self.VideoView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VideoView].[ID] AS [ID], 
+    [VideoView].[Title] AS [Title], 
+    [VideoView].[Description] AS [Description], 
+    [VideoView].[Url] AS [Url], 
+    [VideoView].[Type] AS [Type], 
+    [VideoView].[IsPublished] AS [IsPublished], 
+    [VideoView].[Likes] AS [Likes], 
+    [VideoView].[CategoryID] AS [CategoryID], 
+    [VideoView].[Dislikes] AS [Dislikes], 
+    [VideoView].[CreatedBy] AS [CreatedBy], 
+    [VideoView].[CreatedAt] AS [CreatedAt], 
+    [VideoView].[Shared] AS [Shared], 
+    [VideoView].[CountryID] AS [CountryID], 
+    [VideoView].[StateID] AS [StateID], 
+    [VideoView].[LgaID] AS [LgaID], 
+    [VideoView].[Town] AS [Town], 
+    [VideoView].[PublishedBy] AS [PublishedBy], 
+    [VideoView].[PublishedAt] AS [PublishedAt], 
+    [VideoView].[CategoryName] AS [CategoryName], 
+    [VideoView].[LgaName] AS [LgaName], 
+    [VideoView].[CountryName] AS [CountryName], 
+    [VideoView].[StateName] AS [StateName], 
+    [VideoView].[ImageSource] AS [ImageSource], 
+    [VideoView].[ImageUrl] AS [ImageUrl]
+    FROM [dbo].[VideoView] AS [VideoView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Adverts_Countries" Association="Self.FK_Adverts_Countries">
             <End Role="Countries" EntitySet="Countries" />
@@ -907,12 +1063,15 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
             <End Role="News" EntitySet="News" />
             <End Role="NewsComment" EntitySet="NewsComments" />
           </AssociationSet>
+          <EntitySet Name="CandidateViews" EntityType="CampaignModel.CandidateView" />
+          <EntitySet Name="NewsViews" EntityType="CampaignModel.NewsView" />
+          <EntitySet Name="VideoViews" EntityType="CampaignModel.VideoView" />
           <EntitySet Name="Parties" EntityType="CampaignModel.Party" />
           <AssociationSet Name="FK_Parties_Countries" Association="CampaignModel.FK_Parties_Countries">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Party" EntitySet="Parties" />
           </AssociationSet>
-          <EntitySet Name="CandidateViews" EntityType="CampaignModel.CandidateView" />
+          <EntitySet Name="ElectoralOffices" EntityType="CampaignModel.ElectoralOffice" />
           <EntitySet Name="Candidates" EntityType="CampaignModel.Candidate" />
           <AssociationSet Name="FK_Candidates_Countries" Association="CampaignModel.FK_Candidates_Countries">
             <End Role="Country" EntitySet="Countries" />
@@ -1053,8 +1212,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="OpinionAnswerOptionCCount" Type="Int32" Nullable="false" />
           <Property Name="OpinionAnswerOptionDCount" Type="Int32" Nullable="false" />
           <Property Name="OpinionAnswerOptionECount" Type="Int32" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PublishedAt" Type="DateTime" Precision="3" />
@@ -1111,7 +1270,6 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="Title" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IsPublished" Type="Boolean" Nullable="false" />
@@ -1121,11 +1279,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Shared" Type="Int32" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
-          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="StateID" Type="Int32" Nullable="false" />
-          <Property Name="StateName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="LgaID" Type="Int32" />
-          <Property Name="LgaName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Town" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PublishedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Country" Relationship="CampaignModel.FK_Videos_Countries" FromRole="Video" ToRole="Country" />
@@ -1134,6 +1289,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <NavigationProperty Name="VideoCategory" Relationship="CampaignModel.FK_Videos_NewsCategories" FromRole="Video" ToRole="VideoCategory" />
           <NavigationProperty Name="VideoComments" Relationship="CampaignModel.FK_VideoComments_Videos" FromRole="Video" ToRole="VideoComment" />
           <Property Name="PublishedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="CampaignModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1332,6 +1489,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="ParticipationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="CampaignModel.FK_PollParticipant_AspNetUsers" FromRole="PollParticipation" ToRole="AspNetUser" />
           <NavigationProperty Name="Poll" Relationship="CampaignModel.FK_PollParticipant_Polls" FromRole="PollParticipation" ToRole="Poll" />
+          <Property Name="HasParticipated" Type="Boolean" />
+          <Property Name="SelectedPollAnswerOptionText" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PollParticipant_AspNetUsers">
           <End Type="CampaignModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -1365,7 +1524,6 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="Title" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IsPublished" Type="Boolean" Nullable="false" />
           <Property Name="Likes" Type="Int32" Nullable="false" />
           <Property Name="Dislikes" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1376,17 +1534,15 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="PublishedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
-          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="StateID" Type="Int32" Nullable="false" />
-          <Property Name="StateName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="LgaID" Type="Int32" />
-          <Property Name="LgaName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Town" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Country" Relationship="CampaignModel.FK_News_Countries" FromRole="News" ToRole="Country" />
           <NavigationProperty Name="Lga" Relationship="CampaignModel.FK_News_Lga" FromRole="News" ToRole="Lga" />
           <NavigationProperty Name="NewsCategory" Relationship="CampaignModel.FK_News_NewsCategories" FromRole="News" ToRole="NewsCategory" />
           <NavigationProperty Name="State" Relationship="CampaignModel.FK_News_States" FromRole="News" ToRole="State" />
           <NavigationProperty Name="NewsComments" Relationship="CampaignModel.FK_NewsComments_News" FromRole="News" ToRole="NewsComment" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_News_Countries">
           <End Type="CampaignModel.Country" Role="Country" Multiplicity="1" />
@@ -1448,35 +1604,6 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Party">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Acronym" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Website" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="CountryID" Type="Int32" Nullable="false" />
-          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Country" Relationship="CampaignModel.FK_Parties_Countries" FromRole="Party" ToRole="Country" />
-          <NavigationProperty Name="Candidates" Relationship="CampaignModel.FK_Candidates_Parties" FromRole="Party" ToRole="Candidate" />
-        </EntityType>
-        <Association Name="FK_Parties_Countries">
-          <End Type="CampaignModel.Country" Role="Country" Multiplicity="1" />
-          <End Type="CampaignModel.Party" Role="Party" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Party">
-              <PropertyRef Name="CountryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="CandidateView">
           <Key>
             <PropertyRef Name="ID" />
@@ -1520,6 +1647,133 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="LgaID" Type="Int32" Nullable="false" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
           <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NewsView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Body" />
+            <PropertyRef Name="IsPublished" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="Dislikes" />
+            <PropertyRef Name="Shared" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedAt" />
+            <PropertyRef Name="PublishedBy" />
+            <PropertyRef Name="PublishedAt" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="CountryID" />
+            <PropertyRef Name="CountryName" />
+            <PropertyRef Name="StateID" />
+            <PropertyRef Name="StateName" />
+            <PropertyRef Name="LgaName" />
+            <PropertyRef Name="LgaID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsPublished" Type="Boolean" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="Dislikes" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shared" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PublishedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PublishedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LgaName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LgaID" Type="Int32" Nullable="false" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VideoView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Url" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="IsPublished" />
+            <PropertyRef Name="Likes" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="Dislikes" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedAt" />
+            <PropertyRef Name="CountryID" />
+            <PropertyRef Name="StateID" />
+            <PropertyRef Name="LgaName" />
+            <PropertyRef Name="CountryName" />
+            <PropertyRef Name="StateName" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsPublished" Type="Boolean" Nullable="false" />
+          <Property Name="Likes" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Dislikes" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Shared" Type="Int32" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="LgaID" Type="Int32" />
+          <Property Name="Town" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PublishedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PublishedAt" Type="DateTime" Precision="3" />
+          <Property Name="CategoryName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LgaName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Party">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Acronym" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country" Relationship="CampaignModel.FK_Parties_Countries" FromRole="Party" ToRole="Country" />
+          <NavigationProperty Name="Candidates" Relationship="CampaignModel.FK_Candidates_Parties" FromRole="Party" ToRole="Candidate" />
+        </EntityType>
+        <Association Name="FK_Parties_Countries">
+          <End Type="CampaignModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="CampaignModel.Party" Role="Party" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Party">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ElectoralOffice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Candidate">
           <Key>
@@ -1529,6 +1783,7 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ImageUrl" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ImageSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="OtherNames" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
@@ -1538,8 +1793,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <Property Name="Email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Qualifications" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PartyID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Position" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="PositionLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ElectoralOffice" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Constituency" Type="String" MaxLength="228" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
           <Property Name="StateID" Type="Int32" Nullable="false" />
@@ -1749,14 +2004,13 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <EntitySetMapping Name="Videos">
             <EntityTypeMapping TypeName="CampaignModel.Video">
               <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
                 <ScalarProperty Name="PublishedBy" ColumnName="PublishedBy" />
                 <ScalarProperty Name="PublishedAt" ColumnName="PublishedAt" />
                 <ScalarProperty Name="Town" ColumnName="Town" />
-                <ScalarProperty Name="LgaName" ColumnName="LgaName" />
                 <ScalarProperty Name="LgaID" ColumnName="LgaID" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="Shared" ColumnName="Shared" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
@@ -1766,7 +2020,6 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
                 <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1805,6 +2058,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <EntitySetMapping Name="PollParticipations">
             <EntityTypeMapping TypeName="CampaignModel.PollParticipation">
               <MappingFragment StoreEntitySet="PollParticipations">
+                <ScalarProperty Name="SelectedPollAnswerOptionText" ColumnName="SelectedPollAnswerOptionText" />
+                <ScalarProperty Name="HasParticipated" ColumnName="HasParticipated" />
                 <ScalarProperty Name="ParticipationDate" ColumnName="ParticipationDate" />
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="SelectedPollAnswerOption" ColumnName="SelectedPollAnswerOption" />
@@ -1817,12 +2072,10 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="CampaignModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
                 <ScalarProperty Name="Town" ColumnName="Town" />
-                <ScalarProperty Name="LgaName" ColumnName="LgaName" />
                 <ScalarProperty Name="LgaID" ColumnName="LgaID" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="PublishedAt" ColumnName="PublishedAt" />
@@ -1833,7 +2086,6 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
                 <ScalarProperty Name="Dislikes" ColumnName="Dislikes" />
                 <ScalarProperty Name="Likes" ColumnName="Likes" />
                 <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1841,25 +2093,10 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Parties">
-            <EntityTypeMapping TypeName="CampaignModel.Party">
-              <MappingFragment StoreEntitySet="Parties">
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CandidateViews">
             <EntityTypeMapping TypeName="CampaignModel.CandidateView">
               <MappingFragment StoreEntitySet="CandidateView">
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="LgaID" ColumnName="LgaID" />
@@ -1887,6 +2124,90 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NewsViews">
+            <EntityTypeMapping TypeName="CampaignModel.NewsView">
+              <MappingFragment StoreEntitySet="NewsView">
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
+                <ScalarProperty Name="LgaID" ColumnName="LgaID" />
+                <ScalarProperty Name="LgaName" ColumnName="LgaName" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="PublishedAt" ColumnName="PublishedAt" />
+                <ScalarProperty Name="PublishedBy" ColumnName="PublishedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Shared" ColumnName="Shared" />
+                <ScalarProperty Name="Dislikes" ColumnName="Dislikes" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoViews">
+            <EntityTypeMapping TypeName="CampaignModel.VideoView">
+              <MappingFragment StoreEntitySet="VideoView">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="LgaName" ColumnName="LgaName" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="PublishedAt" ColumnName="PublishedAt" />
+                <ScalarProperty Name="PublishedBy" ColumnName="PublishedBy" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="LgaID" ColumnName="LgaID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Shared" ColumnName="Shared" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Dislikes" ColumnName="Dislikes" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parties">
+            <EntityTypeMapping TypeName="CampaignModel.Party">
+              <MappingFragment StoreEntitySet="Parties">
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
+                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElectoralOffices">
+            <EntityTypeMapping TypeName="CampaignModel.ElectoralOffice">
+              <MappingFragment StoreEntitySet="ElectoralOffices">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Candidates">
             <EntityTypeMapping TypeName="CampaignModel.Candidate">
               <MappingFragment StoreEntitySet="Candidates">
@@ -1895,8 +2216,8 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="PositionLocation" ColumnName="PositionLocation" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Constituency" ColumnName="Constituency" />
+                <ScalarProperty Name="ElectoralOffice" ColumnName="ElectoralOffice" />
                 <ScalarProperty Name="PartyID" ColumnName="PartyID" />
                 <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1906,6 +2227,7 @@ warning 6002: The table/view 'Campaign.dbo.CandidateView' does not have a primar
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="OtherNames" ColumnName="OtherNames" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

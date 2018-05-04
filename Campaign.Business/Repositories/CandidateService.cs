@@ -62,6 +62,46 @@ namespace Campaign.Business.Repositories
             return candidate;
         }
 
+        public List<Candidate> GetDefaultCandidatesByElectoralOffice()
+        {
+            var offices = _db.ElectoralOffices.ToList();
+            var candidates = new List<Candidate>();
+
+            foreach (var office in offices)
+            {
+                var officeCandidates = _db.Candidates.Where(x => x.ElectoralOffice == office.ID).Take(4).ToList();
+                if (officeCandidates.Count() > 0 )
+                {
+                    foreach (var can in officeCandidates)
+                    {
+                        candidates.Add(can);
+                    }
+                }
+                
+            }
+            return candidates.OrderBy(x => x.ElectoralOffice).ToList();
+        }
+
+        public List<Candidate> FilterCandidates(string OfficeID, int? stateId, int? lgaId)
+        {
+            var candidates = _db.Candidates.Where(x =>x.ElectoralOffice == OfficeID).AsQueryable();
+            if (candidates != null && stateId != null)
+            {
+                candidates = candidates.Where(x => x.StateID == stateId);
+            }
+            else if (candidates != null && stateId != null && lgaId != null)
+            {
+                candidates = candidates.Where(x => x.StateID == stateId && x.LgaID == lgaId);
+            }
+            else
+            {
+                candidates.Take(50);
+            }
+
+            return candidates.ToList();
+            
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing && _db != null)

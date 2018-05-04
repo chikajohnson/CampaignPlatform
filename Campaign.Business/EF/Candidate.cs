@@ -18,6 +18,7 @@ namespace Campaign.Business.EF
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ImageUrl { get; set; }
+        public string ImageSource { get; set; }
         public string Gender { get; set; }
         public string OtherNames { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
@@ -27,8 +28,8 @@ namespace Campaign.Business.EF
         public string Email { get; set; }
         public string Qualifications { get; set; }
         public string PartyID { get; set; }
-        public string Position { get; set; }
-        public string PositionLocation { get; set; }
+        public string ElectoralOffice { get; set; }
+        public string Constituency { get; set; }
         public string Remarks { get; set; }
         public int CountryID { get; set; }
         public int StateID { get; set; }

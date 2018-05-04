@@ -43,10 +43,13 @@
         <AssociationConnector Association="CampaignModel.FK_News_NewsCategories" />
         <AssociationConnector Association="CampaignModel.FK_News_States" />
         <AssociationConnector Association="CampaignModel.FK_NewsComments_News" />
-        <EntityTypeShape EntityType="CampaignModel.Party" Width="1.5" PointX="7.5" PointY="5.25" />
-        <AssociationConnector Association="CampaignModel.FK_Parties_Countries" />
         <EntityTypeShape EntityType="CampaignModel.CandidateView" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="CampaignModel.Candidate" Width="1.5" PointX="16.5" PointY="1.25" />
+        <EntityTypeShape EntityType="CampaignModel.NewsView" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CampaignModel.VideoView" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CampaignModel.Party" Width="1.5" PointX="7.5" PointY="11.125" />
+        <AssociationConnector Association="CampaignModel.FK_Parties_Countries" />
+        <EntityTypeShape EntityType="CampaignModel.ElectoralOffice" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CampaignModel.Candidate" Width="1.5" PointX="15.75" PointY="18.125" />
         <AssociationConnector Association="CampaignModel.FK_Candidates_Countries" />
         <AssociationConnector Association="CampaignModel.FK_Candidates_Parties" />
         <AssociationConnector Association="CampaignModel.FK_Candidates_States" />

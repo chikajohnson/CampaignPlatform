@@ -12,18 +12,10 @@ namespace Campaign.Business.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class PollParticipation
+    public partial class ElectoralOffice
     {
         public string ID { get; set; }
-        public string UserId { get; set; }
-        public string PollId { get; set; }
-        public string SelectedPollAnswerOption { get; set; }
-        public string UserEmail { get; set; }
-        public System.DateTime ParticipationDate { get; set; }
-        public Nullable<bool> HasParticipated { get; set; }
-        public string SelectedPollAnswerOptionText { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual Poll Poll { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Campaign.API.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ImageUrl { get; set; }
+        public string ImageSource { get; set; }
         public string Gender { get; set; }
         public string OtherNames { get; set; }
         public DateTime? DateOfBirth { get; set; }
@@ -23,8 +24,8 @@ namespace Campaign.API.ViewModels
         public string Qualifications { get; set; }
         public string PartyID { get; set; }
         public string PartyName { get; set; }
-        public string Position { get; set; }
-        public string PositionLocation { get; set; }
+        public string ElectoralOffice { get; set; }
+        public string Constituency { get; set; }
         public string Remarks { get; set; }
         public int CountryID { get; set; }
         public string CountryName { get; set; }

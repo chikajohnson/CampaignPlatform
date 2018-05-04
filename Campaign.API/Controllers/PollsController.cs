@@ -1,4 +1,5 @@
-﻿using Campaign.Business.EF;
+﻿using Campaign.API.ViewModels;
+using Campaign.Business.EF;
 using Campaign.Business.Repositories;
 using Serilog;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Http;
 namespace Campaign.API.Controllers
 {
     [RoutePrefix("api/polls")]
+    [Authorize]
     public class PollsController : BaseController
     {
         private readonly PollService _service;
@@ -107,6 +109,61 @@ namespace Campaign.API.Controllers
             return BadRequest("Error occured while retreiving poll.");
         }
 
+        [Route("displaypollstatistics/{pollId}")]
+        public IHttpActionResult GetPollStatistics(string pollId)
+        {
+            var pollStat = _service.GetPollStat(pollId);
+            if (pollStat == null)
+            {
+                return Content(HttpStatusCode.BadRequest, "Error occured while retrieving poll stat");
+            }          
+            
+            return Ok(pollStat);
+        }
+
+        [Route("display")]
+        public IHttpActionResult GetPollToDisplay()
+        {
+            var poll = _service.GetPollToDisplay();
+            if (poll == null)
+            {
+                return Content(HttpStatusCode.NotFound, "There's currently no poll to participate in.");
+            }
+
+            var pollItem = new Poll
+            {
+                ID = poll.ID,
+                OpinionQuestion = poll.OpinionQuestion,
+                Category = poll.Category,
+                Title = poll.Title,
+                NumberOfAnswerOptions = poll.NumberOfAnswerOptions,
+                OpinionAnswerOptionA = poll.OpinionAnswerOptionA,
+                OpinionAnswerOptionB = poll.OpinionAnswerOptionB,
+                OpinionAnswerOptionC = poll.OpinionAnswerOptionC,
+                OpinionAnswerOptionD = poll.OpinionAnswerOptionD,
+                OpinionAnswerOptionE = poll.OpinionAnswerOptionE,
+                OpinionAnswerOptionACount = poll.OpinionAnswerOptionACount,
+                OpinionAnswerOptionBCount = poll.OpinionAnswerOptionBCount,
+                OpinionAnswerOptionCCount = poll.OpinionAnswerOptionCCount,
+                OpinionAnswerOptionDCount = poll.OpinionAnswerOptionDCount,
+                OpinionAnswerOptionECount = poll.OpinionAnswerOptionECount,
+                StartDate = poll.StartDate,
+                EndDate = poll.StartDate,
+                CreatedAt = poll.CreatedAt,
+                CreatedBy = poll.CreatedBy,
+                IsPublished = poll.IsPublished,
+                //PublishedBy = poll.PublishedBy,
+                PublishedAt = poll.PublishedAt
+            };
+
+            if (pollItem != null)
+            {
+                return Ok(pollItem);
+            }
+            Log.Information($"Error occured while retreiving poll {BadRequest()}");
+            return BadRequest("Error occured while retreiving poll.");
+        }
+
         [Route("")]
         public IHttpActionResult Post(Poll model)
         {
@@ -131,21 +188,39 @@ namespace Campaign.API.Controllers
         }
 
         [Route("participate")]
-        public IHttpActionResult PostParticipate(PollParticipation model)
+        public IHttpActionResult PostParticipate(PollParticipationModel model)
         {
+
             if (model == null)
             {
                 return BadRequest("An error occured while trying to create poll.");
             }
            
-            if (_service.GetById(model.ID) == null)
+            var participation = new PollParticipation
+            {
+                UserEmail = UserRecord.Email,
+                UserId = UserRecord.Id,
+                ID = _utilService.generateGuid(),
+                ParticipationDate = DateTime.Now,
+                PollId = model.PollId,
+                SelectedPollAnswerOption = model.SelectedPollAnswerOption,
+                SelectedPollAnswerOptionText = model.SelectedPollAnswerOptionText
+               
+            };
+
+
+            if (_service.GetById(participation.PollId) == null)
             {
                 return BadRequest("Poll is invalid");
             }
-            model.UserId = UserRecord.Id;
-            model.ID = _utilService.generateGuid();
-            model.ParticipationDate = DateTime.Now;
-            var participation = _pollParticipantService.Participate(model);
+
+            if (_service.HasParticipated(participation) == true)
+            {
+                return BadRequest("You have alreday participated in this poll.");
+            }           
+            
+            participation = _pollParticipantService.Participate(participation);
+
             if (participation != null)
             {
                 return Ok(participation);

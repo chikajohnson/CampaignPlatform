@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Campaign.Business.Repositories
 {
-    public class PartyService
+    public class ElectoralOfficeService
     {
         private readonly CampaignEntities _db;
         private UtilityService _utilityService;
-        public PartyService()
+        public ElectoralOfficeService()
         {
             _db = new CampaignEntities();
             _utilityService = new UtilityService();

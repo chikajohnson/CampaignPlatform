@@ -62,22 +62,24 @@ namespace Campaign.API.Controllers
             {
                 return BadRequest("invalid news item");
             }
-            var newsItem = _service.GetById(id);
+            var newsItem = _service.GetSingleViewById(id);
             if (newsItem == null)
             {
                 return NotFound();
             }
-            var news = new News
+            var news = new NewsView
             {
                 ID = newsItem.ID,
                 Title = newsItem.Title,
                 Body = newsItem.Body,
                 ImageUrl = newsItem.ImageUrl,
+                ImageSource = newsItem.ImageSource,
                 LgaID = newsItem.LgaID,
                 LgaName = newsItem.LgaName,
                 Town = newsItem.Town,
                 PublishedBy = newsItem.PublishedBy,
                 PublishedAt = newsItem.PublishedAt,
+                CategoryID = newsItem.CategoryID,
                 CategoryName = newsItem.CategoryName,
                 CountryID = newsItem.CountryID,
                 CountryName = newsItem.CountryName,
@@ -85,7 +87,8 @@ namespace Campaign.API.Controllers
                 StateID = newsItem.StateID,
                 CreatedAt = newsItem.CreatedAt,
                 CreatedBy = newsItem.CreatedBy,
-               
+                Dislikes = newsItem.Dislikes,
+                Likes = newsItem.Likes,
                 IsPublished = newsItem.IsPublished,
                 Shared = newsItem.Shared
             };
@@ -113,8 +116,9 @@ namespace Campaign.API.Controllers
                     Title = x.Title,
                     Body = x.Body,
                     ImageUrl = x.ImageUrl,
+                    ImageSource = x.ImageSource,
                     LgaID = x.LgaID,
-                    LgaName = x.LgaName,
+                    LgaName = x,
                     Town = x.Town,
                     PublishedBy = x.PublishedBy,
                     PublishedAt = x.PublishedAt,
@@ -185,18 +189,15 @@ namespace Campaign.API.Controllers
                 Title = model.Title,
                 Body = model.Body,
                 ImageUrl = model.ImageUrl,
+                ImageSource = model.ImageSource,
                 LgaID = model.LgaID,
-                LgaName = model.LgaName,
                 Town = model.Town,
                 PublishedBy = model.PublishedBy,
                 PublishedAt = model.PublishedAt,
                 CategoryID = model.CategoryID,
                 Likes = model.Likes,
                 Dislikes = model.Dislikes,
-                CategoryName = model.CategoryName,
                 CountryID = model.CountryID,
-                CountryName = model.CountryName,
-                StateName = model.StateName,
                 StateID = model.StateID,
                 CreatedAt = model.CreatedAt,
                 CreatedBy = model.CreatedBy,

@@ -35,7 +35,9 @@ namespace Campaign.API.Controllers
                 LgaName = x.LgaName,
                 Town = x.Town,
                 //PublishedBy = x.PublishedBy,
+                Type = x.Type,
                 PublishedAt = x.PublishedAt,
+                CategoryID = x.CategoryID,
                 CategoryName = x.CategoryName,
                 CountryID = x.CountryID,
                 CountryName = x.CountryName,
@@ -62,12 +64,12 @@ namespace Campaign.API.Controllers
             {
                 return BadRequest("invalid video item");
             }
-            var video = _service.GetById(id);
+            var video = _service.GetSingleViewById(id);
             if (video == null)
             {
                 return NotFound();
             }
-            var videoItem = new Video
+            var videoItem = new VideoView
             {
                 ID = video.ID,
                 Title = video.Title,
@@ -75,13 +77,17 @@ namespace Campaign.API.Controllers
                 Url = video.Url,
                 LgaID = video.LgaID,
                 LgaName = video.LgaName,
+                ImageUrl = video.ImageUrl,
+                ImageSource = video.ImageSource,
                 Town = video.Town,
                 PublishedBy = video.PublishedBy,
                 PublishedAt = video.PublishedAt,
+                CategoryID = video.CategoryID,
                 CategoryName = video.CategoryName,
                 CountryID = video.CountryID,
                 CountryName = video.CountryName,
                 StateName = video.StateName,
+                Type = video.Type,
                 StateID = video.StateID,
                 CreatedAt = video.CreatedAt,
                 CreatedBy = video.CreatedBy,
@@ -116,6 +122,8 @@ namespace Campaign.API.Controllers
                     LgaName = x.LgaName,
                     Town = x.Town,
                    // PublishedBy = x.PublishedBy,
+                    ImageUrl = x.ImageUrl,
+                    ImageSource = x.ImageSource,
                     PublishedAt = x.PublishedAt,
                     CategoryID = x.CategoryID,
                     CategoryName = x.CategoryName,
@@ -182,18 +190,16 @@ namespace Campaign.API.Controllers
                 Description = model.Description,
                 Url = model.Url,
                 LgaID = model.LgaID,
-                LgaName = model.LgaName,
                 Town = model.Town,
                 Type = model.Type,
-                //PublishedBy = model.PublishedBy,
+                // PublishedBy = model.PublishedBy,
+                ImageUrl = model.ImageUrl,
+                ImageSource = model.ImageSource,
                 PublishedAt = model.PublishedAt,
                 CategoryID = model.CategoryID,
                 Likes = model.Likes,
                 Dislikes = model.Dislikes,
-                CategoryName = model.CategoryName,
                 CountryID = model.CountryID,
-                CountryName = model.CountryName,
-                StateName = model.StateName,
                 StateID = model.StateID,
                 CreatedAt = model.CreatedAt,
                 CreatedBy = model.CreatedBy,

@@ -91,6 +91,9 @@
     <Compile Include="EF\C__MigrationHistory.cs">
       <DependentUpon>CampaignEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\ElectoralOffice.cs">
+      <DependentUpon>CampaignEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Lga.cs">
       <DependentUpon>CampaignEntity.tt</DependentUpon>
     </Compile>
@@ -101,6 +104,9 @@
       <DependentUpon>CampaignEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\NewsComment.cs">
+      <DependentUpon>CampaignEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\NewsView.cs">
       <DependentUpon>CampaignEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Party.cs">
@@ -122,6 +128,9 @@
       <DependentUpon>CampaignEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\VideoComment.cs">
+      <DependentUpon>CampaignEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\VideoView.cs">
       <DependentUpon>CampaignEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

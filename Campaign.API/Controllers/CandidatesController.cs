@@ -20,6 +20,7 @@ namespace Campaign.API.Controllers
             _service = new CandidateService();
             _utilityService = new UtilityService();
         }
+
         [Route("")]
         public IHttpActionResult Get()
         {
@@ -37,8 +38,8 @@ namespace Campaign.API.Controllers
                     LastName = x.LastName,
                     OtherNames = x.OtherNames,
                     PartyName = x.PartyName,
-                    Position = x.Position,
-                    PositionLocation = x.PositionLocation,
+                    ElectoralOffice = x.Position,
+                    Constituency = x.PositionLocation,
                     Gender = x.Gender,
                     Town = x.Town,
                     ImageUrl = x.ImageUrl,
@@ -54,6 +55,42 @@ namespace Campaign.API.Controllers
             Log.Information($"Error occured while retreiving candidates {BadRequest()}");
             return BadRequest("Error occured while retreiving candidates");
         }
+
+        [Route("displaydefault")]
+        public IHttpActionResult GetDefaultCandidates()
+        {
+            var candidates = _service.GetDefaultCandidatesByElectoralOffice()
+                .Select(x => new {
+                    ID = x.ID,
+                    Address = x.Address,
+                    Age = x.Age,
+                    DateOfBirth = x.DateOfBirth,
+                    CountryID = x.Country.Name,
+                    StateName = x.State.Name,
+                    LgaName = x.LgaID,
+                    Email = x.Email,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    OtherNames = x.OtherNames,
+                    PartyName = x.PartyID,
+                    Position = x.ElectoralOffice,
+                    PositionLocation = x.Constituency,
+                    Gender = x.Gender,
+                    Town = x.Town,
+                    ImageUrl = x.ImageUrl,
+                    Remarks = x.Remarks,
+                    PhoneNumber = x.PhoneNumber,
+                    Qualifications = x.Qualifications
+                })
+                .ToList();
+            if (candidates != null)
+            {
+                return Ok(candidates);
+            }
+            Log.Information($"Error occured while retreiving candidates {BadRequest()}");
+            return BadRequest("Error occured while retreiving candidates");
+        }
+
 
         [Route("{id}")]
         public IHttpActionResult Get(string id)
@@ -82,6 +119,7 @@ namespace Campaign.API.Controllers
                 Gender = candidate.Gender,
                 Town = candidate.Town,
                 ImageUrl = candidate.ImageUrl,
+                ImageSource = candidate.ImageSource,
                 Remarks = candidate.Remarks,
                 PhoneNumber = candidate.PhoneNumber,
                 Qualifications = candidate.Qualifications
@@ -140,11 +178,12 @@ namespace Campaign.API.Controllers
                 LastName = model.LastName,
                 OtherNames = model.OtherNames,
                 PartyID = model.PartyID,
-                Position = model.Position,
-                PositionLocation = model.PositionLocation,
+                ElectoralOffice = model.ElectoralOffice,
+                Constituency = model.Constituency,
                 Gender = model.Gender,
                 Town = model.Town,
                 ImageUrl = model.ImageUrl,
+                ImageSource = model.ImageSource,
                 Remarks = model.Remarks,
                 PhoneNumber = model.PhoneNumber,
                 Qualifications = model.Qualifications

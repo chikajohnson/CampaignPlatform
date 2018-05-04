@@ -24,7 +24,6 @@ namespace Campaign.Business.EF
         public string Title { get; set; }
         public string Description { get; set; }
         public string CategoryID { get; set; }
-        public string CategoryName { get; set; }
         public string Url { get; set; }
         public string Type { get; set; }
         public bool IsPublished { get; set; }
@@ -34,14 +33,13 @@ namespace Campaign.Business.EF
         public System.DateTime CreatedAt { get; set; }
         public Nullable<int> Shared { get; set; }
         public int CountryID { get; set; }
-        public string CountryName { get; set; }
         public int StateID { get; set; }
-        public string StateName { get; set; }
         public Nullable<int> LgaID { get; set; }
-        public string LgaName { get; set; }
         public string Town { get; set; }
         public Nullable<System.DateTime> PublishedAt { get; set; }
         public string PublishedBy { get; set; }
+        public string ImageSource { get; set; }
+        public string ImageUrl { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual Lga Lga { get; set; }

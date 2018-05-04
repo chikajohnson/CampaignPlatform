@@ -18,20 +18,25 @@ namespace Campaign.Business.Repositories
             _utilityService = new UtilityService();
         }
 
-        public IQueryable<News> GetAll()
+        public IQueryable<NewsView> GetAll()
         {
-            var news = _db.News.AsQueryable();
+            var news = _db.NewsViews.AsQueryable();
             return news;
         }
 
-        public IQueryable<News> GetByCategory(string categoryId)
+        public IQueryable<NewsView> GetByCategory(string categoryId)
         {
-            var news = _db.News.Where(n => n.CategoryID == categoryId);
+            var news = _db.NewsViews.Where(n => n.CategoryID == categoryId);
                 return news.AsQueryable(); ;
         }
         public News GetById(string Id)
         {
             return _db.News.SingleOrDefault(x => x.ID == Id);
+        }
+
+        public NewsView GetSingleViewById(string Id)
+        {
+            return _db.NewsViews.SingleOrDefault(x => x.ID == Id);
         }
 
         public News Create(News model)

@@ -21,6 +21,7 @@ namespace Campaign.API.ViewModels
         public string PublishedBy { get; set; }
         public DateTime PublishedAt { get; set; }
         public string ImageUrl { get; set; }
+        public string ImageSource { get; set; }
         public int CountryID { get; set; }
         public string CountryName { get; set; }
         public int StateID { get; set; }

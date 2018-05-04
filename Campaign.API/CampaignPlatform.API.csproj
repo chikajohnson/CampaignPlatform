@@ -273,6 +273,7 @@
     <Compile Include="ViewModels\AdvertModel.cs" />
     <Compile Include="ViewModels\CandidateModel.cs" />
     <Compile Include="ViewModels\CommentModel.cs" />
+    <Compile Include="ViewModels\PollParticipationModel.cs" />
     <Compile Include="ViewModels\VideoModel.cs" />
     <Compile Include="ViewModels\NewsModel.cs" />
     <Compile Include="ViewModels\VideoCategoryViewModel.cs" />

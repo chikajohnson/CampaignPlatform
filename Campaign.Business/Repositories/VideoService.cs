@@ -18,14 +18,19 @@ namespace Campaign.Business.Repositories
             _utilityService = new UtilityService();
         }
 
-        public IQueryable<Video> GetAll()
+        public IQueryable<VideoView> GetAll()
         {
-            return _db.Videos.AsQueryable();
+            return _db.VideoViews.AsQueryable();
         }
 
-        public IQueryable<Video> GetByCategory(string categoryId)
+        public VideoView GetSingleViewById(string Id)
         {
-            return _db.Videos.Where(v => v.CategoryID == categoryId).AsQueryable();
+            return _db.VideoViews.SingleOrDefault(x => x.ID == Id);
+        }
+
+        public IQueryable<VideoView> GetByCategory(string categoryId)
+        {
+            return _db.VideoViews.Where(v => v.CategoryID == categoryId).AsQueryable();
         }
         public Video GetById(string Id)
         {

@@ -38,5 +38,6 @@ namespace Campaign.Business.EF
         public int LgaID { get; set; }
         public int CountryID { get; set; }
         public int StateID { get; set; }
+        public string ImageSource { get; set; }
     }
 }
